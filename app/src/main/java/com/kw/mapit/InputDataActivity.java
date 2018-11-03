@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,15 +32,17 @@ public class InputDataActivity extends AppCompatActivity {
     private static final String LOG_TAG = "APISigninView";
     StringBuffer sbParams = null;
 
-    TextView tv_signIn;
     EditText loginId;
     EditText loginPassword;
+    EditText loginName;
     EditText loginEmail;
     EditText loginAge;
-    RadioGroup loginSex;
+    RadioButton loginMale;
+    RadioButton loginFemale;
 
-    String userName;
+    String userId;
     String userPassword;
+    String userName;
     String userSex;
     int userAge;
     String userEmail;
@@ -47,43 +52,125 @@ public class InputDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_data);
 
-        Intent getIntent = new Intent();
-        userName = getIntent.getStringExtra("USERNAME");
-        userEmail = getIntent.getStringExtra("USEREMAIL");
-
         loginId = (EditText) findViewById(R.id.ed_api_signin_id);
         loginPassword = (EditText) findViewById(R.id.ed_api_signin_password);
-        loginSex = (RadioGroup) findViewById(R.id.rg_sex);
+        loginName = (EditText) findViewById(R.id.ed_api_signin_name);
         loginAge = (EditText) findViewById(R.id.ed_api_signin_age);
         loginEmail = (EditText) findViewById(R.id.ed_api_signin_email);
+        loginMale = (RadioButton)findViewById(R.id.rb_male);
+        loginFemale = (RadioButton)findViewById(R.id.rb_female);
 
-        loginId.setText(userName);
+        loginName.setText(userName);
         loginEmail.setText(userEmail);
 
-        //Intent로 사용자 아이디 불러오기
-        Intent nameIntent = getIntent();
-        if (nameIntent != null) {
-            String name = nameIntent.getStringExtra("NAME");
+        //Google/Kakao 로그인으로 연결한 사용자 정보 받아오기
+        Intent getIntent = getIntent();
+        if (getIntent != null) {
+            String id = getIntent.getStringExtra("USER_ID");
+            String name = getIntent.getStringExtra("USER_NAME");
+            String email = getIntent.getStringExtra("USER_EMAIL");
 
-            loginId.setText(name);
+            loginId.setText(id);
+            loginEmail.setText(email);
+            loginName.setText(name);
 
+            Log.e("KakaoLogin", "ID : " + id + " / Name : " + name + " / Email : " + email);
         }
+
+
+        //라디오 버튼 클릭 시 나머지 포커스 out
+        loginMale.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                loginId.setFocusable(false);
+                loginPassword.setFocusable(false);
+                loginName.setFocusable(false);
+                loginAge.setFocusable(false);
+                loginEmail.setFocusable(false);
+
+                //키보드 숨기기(내리기)
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+            }
+
+        });
+
+        loginFemale.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                loginId.setFocusable(false);
+                loginPassword.setFocusable(false);
+                loginName.setFocusable(false);
+                loginAge.setFocusable(false);
+                loginEmail.setFocusable(false);
+
+                //키보드 숨기기(내리기)
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+            }
+
+        });
+
     }
 
     public void onClick(View v) throws ExecutionException, InterruptedException {
-        if(v.getId() == R.id.btn_sign_in)
+        //EditText 클릭 시 포커스 가져오기 및 키보드 올리기
+        if(v.getId() == R.id.ed_api_signin_id) {
+            loginId.setFocusable(true);
+            loginId.setFocusableInTouchMode(true);
+            loginId.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);       //키보드 올리기
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        }
+        else if(v.getId() == R.id.ed_api_signin_password) {
+            loginPassword.setFocusable(true);
+            loginPassword.setFocusableInTouchMode(true);
+            loginPassword.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);       //키보드 올리기
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
+        else if(v.getId() == R.id.ed_api_signin_name) {
+            loginName.setFocusable(true);
+            loginName.setFocusableInTouchMode(true);
+            loginName.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);       //키보드 올리기
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
+        else if(v.getId() == R.id.ed_api_signin_age) {
+            loginAge.setFocusable(true);
+            loginAge.setFocusableInTouchMode(true);
+            loginAge.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);       //키보드 올리기
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
+        else if(v.getId() == R.id.ed_api_signin_email) {
+            loginEmail.setFocusable(true);
+            loginEmail.setFocusableInTouchMode(true);
+            loginEmail.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);       //키보드 올리기
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
+
+        //Back 버튼 클릭
+        else if(v.getId() == R.id.btn_back)
+        {
+            finish();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+        //Sign in 버튼 클릭
+        else if(v.getId() == R.id.btn_sign_in)
         {
             //EditText에서 정보 받아오기
-            userName = loginId.getText().toString();
+            userId = loginId.getText().toString();
             userPassword = loginPassword.getText().toString();
-            int radioId = loginSex.getCheckedRadioButtonId();
-            RadioButton rb = (RadioButton)findViewById(radioId);
-            if(rb.getText().toString().equals("Male"))
-            {
+            userName = loginName.getText().toString();
+            if(loginMale.isChecked()) {
                 userSex = "M";
             }
-            else if(rb.getText().toString().equals("Female"))
-            {
+            else if(loginFemale.isChecked()) {
                 userSex = "F";
             }
 
@@ -95,12 +182,13 @@ public class InputDataActivity extends AppCompatActivity {
             }
             userEmail = loginEmail.getText().toString();
 
-            Log.e("superdroid", userName + " - " + userPassword+ " - " + userSex+ " - " + userAge+ " - " + userEmail);
+            Log.e("superdroid", userId + " - " + userPassword+ " - " + userName + " - " + userSex+ " - " + userAge+ " - " + userEmail);
 
             //Insert 사용자 정보
             sbParams = new StringBuffer();
-            sbParams.append("id=").append(userName);
+            sbParams.append("id=").append(userId);
             sbParams.append("&").append("password=").append(userPassword);
+            sbParams.append("&").append("name=").append(userName);
             sbParams.append("&").append("sex=").append(userSex);
             sbParams.append("&").append("age=").append(userAge);
             sbParams.append("&").append("email=").append(userEmail);
@@ -112,7 +200,10 @@ public class InputDataActivity extends AppCompatActivity {
             if(result.contains("success")) {
                 loginId.setText("");
                 loginPassword.setText("");
-                rb.setSelected(false);
+                loginName.setText("");
+                //rb.setSelected(false);
+                loginMale.setChecked(false);
+                loginFemale.setChecked(false);
                 loginAge.setText("");
                 loginEmail.setText("");
 
@@ -124,7 +215,7 @@ public class InputDataActivity extends AppCompatActivity {
                 Activity activity = (Activity)LoginActivity.activity_login;
                 activity.finish();
 
-                Toast.makeText(getApplicationContext(), "Map it에 오신 것을 환영합니다:)", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Mapit에 오신 것을 환영합니다:)", Toast.LENGTH_LONG).show();
             }
             //DB에 사용자 정보 저장 실패 시
             else {

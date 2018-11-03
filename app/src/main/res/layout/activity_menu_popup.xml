@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#393941"
+    android:padding="20dp"
+    tools:context=".MenuPopup">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/seoulnamsan"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:text="Popular Hastag"/>
+
+        <ImageView
+            android:id="@+id/popularHashtag"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/img_box_line"
+            android:onClick="onClick"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/seoulnamsan"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:text="Recent Hastag"
+            android:onClick="onClick"/>
+
+        <ImageView
+            android:id="@+id/recentHashtag"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/img_box_line"
+            android:onClick="onClick"/>
+
+    </FrameLayout>
+
+</LinearLayout>

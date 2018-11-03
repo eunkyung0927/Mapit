@@ -22,6 +22,9 @@ public class MainActivity extends Activity {
         if(v.getId() == R.id.main_login) {
             goIntent = new Intent(this, LoginActivity.class);
         }
+        else if(v.getId() == R.id.db_making){
+            goIntent = new Intent(this, DataMakingActivity.class);
+        }
         //DB_Connect & Write text
         else if(v.getId() == R.id.db_connect) {
             goIntent = new Intent(this, DbConnectActivity.class);
@@ -30,12 +33,17 @@ public class MainActivity extends Activity {
         else if(v.getId() == R.id.pixel) {
             goIntent = new Intent(this, PixelActivity.class);
         }
+        else if(v.getId() == R.id.pixel2) {
+            goIntent = new Intent(this, PixelActivity2.class);
+        }
         else if(v.getId() == R.id.get_hashtag) {
             goIntent = new Intent(this, PopularHashTagActivity.class);
         }
-        else if(v.getId() == R.id.main_map) {
-            Toast.makeText(MainActivity.this, "아직..", Toast.LENGTH_LONG).show();
-            //goIntent = new Intent(this, MainMapActivity.class);
+        else if(v.getId() == R.id.gps) {
+            goIntent = new Intent(this, GPSActivity.class);
+        }
+        else if(v.getId() == R.id.mapit) {
+            goIntent = new Intent(this, LoginActivity.class);
         }
 
         if(goIntent != null) {
